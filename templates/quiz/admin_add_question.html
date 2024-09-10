@@ -1,0 +1,103 @@
+{% extends 'quiz/adminbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-title {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: #ffffff;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<h2 class="form-title">Add Question</h2>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8 form-container">
+            <form method="POST" autocomplete="off">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="course">Course</label>
+                    {% render_field questionForm.courseID|attr:'required:true' class="form-control" %}
+                </div>
+
+                <div class="form-group">
+                    <label for="question">Question</label>
+                    {% render_field questionForm.question|attr:'required:true' class="form-control" placeholder="Write Your question" %}
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="marks">Marks</label>
+                        {% render_field questionForm.marks|attr:'required:true' class="form-control" placeholder="Marks" %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="course">Course</label>
+                        {% render_field questionForm.courseID|attr:'required:true' class="form-control" %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="option1">Option 1</label>
+                    {% render_field questionForm.option1|attr:'required:true' class="form-control" placeholder="Option 1" %}
+                </div>
+
+                <div class="form-group">
+                    <label for="option2">Option 2</label>
+                    {% render_field questionForm.option2|attr:'required:true' class="form-control" placeholder="Option 2" %}
+                </div>
+
+                <div class="form-group">
+                    <label for="option3">Option 3</label>
+                    {% render_field questionForm.option3|attr:'required:true' class="form-control" placeholder="Option 3" %}
+                </div>
+
+                <div class="form-group">
+                    <label for="option4">Option 4</label>
+                    {% render_field questionForm.option4|attr:'required:true' class="form-control" placeholder="Option 4" %}
+                </div>
+
+                <div class="form-group">
+                    <label for="answer">Answer</label>
+                    {% render_field questionForm.answer|attr:'required:true' class="form-control" %}
+                </div>
+
+                <button type="submit" class="btn btn-custom">Add Question</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

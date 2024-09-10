@@ -1,0 +1,140 @@
+{% extends 'quiz/adminbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style type="text/css">
+        a:link, a:visited {
+            text-decoration: none;
+            color: black;
+        }
+
+        .order-card {
+            color: black;
+        }
+
+        .bg-c-blue {
+            background: #bcedc2; /* Light Blue */
+        }
+
+        .bg-c-green {
+            background: #fdb8a5; /* Light Green */
+        }
+
+        .bg-c-yellow {
+            background: #f9d6d5; /* Light Yellow */
+        }
+
+        .bg-c-pink {
+            background: #faebc6; /* Light Pink */
+        }
+
+        .card {
+            -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+            box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+            border: 1px solid black;
+            margin-bottom: 30px;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card .card-block {
+            padding: 25px;
+        }
+
+        .order-card i {
+            font-size: 26px;
+            color: black;
+        }
+
+        .f-left {
+            float: left;
+        }
+
+        .f-right {
+            float: right;
+        }
+
+        .btn-custom {
+            background-color: #f40000; /* Red background */
+            color: white; /* White text color */
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #d0d0d0; /* Hover background color */
+            color: black; /* Text color on hover */
+        }
+
+        header {
+            left: 0px;
+            right: 0px;
+        }
+    </style>
+</head>
+
+<br><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20"> <a href="admin-view-student" style="text-decoration: none;">Total Students</a> </h6>
+                    <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{total_student}}</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20"><a href="admin-view-teacher" style="text-decoration: none;">Total Teacher</a> </h6>
+                    <h2 class="text-right"><i class="fas fa-chalkboard-teacher f-left"></i><span>{{total_teacher}}</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20"><a href="admin-view-course" style="text-decoration: none;">Total Courses</a></h6>
+                    <h2 class="text-right"><i class="fas fa-book f-left"></i><span>{{total_course}}</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20"><a href="admin-view-question" style="text-decoration: none;">Total Questions</a></h6>
+                    <h2 class="text-right"><i class="fas fa-question-circle f-left"></i><span>{{total_question}}</span></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <a href="admin-add-question" class="btn btn-custom">Add Question</a>
+        </div>
+        <div class="col-md-6">
+            <a href="admin-view-question" class="btn btn-custom">View Questions</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock content %}

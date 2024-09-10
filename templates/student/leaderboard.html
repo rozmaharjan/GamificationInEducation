@@ -1,0 +1,149 @@
+{% extends 'student/studentbase.html' %} {% block content %}
+<style>
+  /* Overall page styling for the leaderboard */
+  .leaderboard-title {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: "Roboto", sans-serif;
+  }
+
+  /* Style the leaderboard table */
+  .leaderboard-table {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-family: "Roboto", sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Table headers styling */
+  .leaderboard-table thead th {
+    background-color: #3498db;
+    /* Blue background */
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-size: 1.1rem;
+  }
+
+  /* Table rows styling */
+  .leaderboard-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+    /* Very light grey background for even rows */
+  }
+
+  .leaderboard-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+    /* White background for odd rows */
+  }
+
+  .leaderboard-table tbody td {
+    padding: 15px;
+    text-align: left;
+    font-size: 1rem;
+  }
+
+  /* Add border to table and cells */
+  .leaderboard-table,
+  .leaderboard-table th,
+  .leaderboard-table td {
+    border: 1px solid #ddd;
+  }
+
+  /* Add a hover effect for rows */
+  .leaderboard-table tbody tr:hover {
+    background-color: #e1e1e1;
+    /* Slightly darker grey background on hover */
+  }
+
+  /* Style for Rank and Student columns */
+  .leaderboard-table tbody td:first-child {
+    font-weight: bold;
+  }
+
+  .leaderboard-table tbody td:nth-child(2) {
+    color: #3498db;
+    /* Blue color for student IDs */
+  }
+
+  /* Icon styling */
+  .leaderboard-icon {
+    font-size: 1.5rem;
+    color: #ffd700;
+    /* Default color for gold */
+    margin-left: 10px;
+  }
+
+  .silver {
+    color: #c0c0c0;
+    /* Silver color */
+  }
+
+  .bronze {
+    color: #cd7f32;
+    /* Bronze color */
+  }
+
+  .smiley {
+    color: #f5b942;
+    /* Smiley color */
+  }
+
+  /* Responsive styling */
+  @media (max-width: 768px) {
+    .leaderboard-table {
+      width: 100%;
+    }
+
+    .leaderboard-table thead th,
+    .leaderboard-table tbody td {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  }
+</style>
+
+<h1 class="leaderboard-title">Leaderboard</h1>
+<table class="leaderboard-table">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Student</th>
+      <th>Total Marks Attended</th>
+      <th>Reward</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for result in quiz_results %}
+    <tr>
+      <td>{{ result.rank }}</td>
+      <td>{{ result.student_name }}</td>
+      <td>{{ result.marks_obtained }}</td>
+      <td>
+        {% if result.student.user.id == request.user.id %}
+        {% if result.rank <= 3 %} <a href="{% url 'coupons' %}?discount={{ result.discount }}">
+          <i
+            class="fas fa-medal leaderboard-icon {% if result.rank == 1 %}gold{% elif result.rank == 2 %}silver{% elif result.rank == 3 %}bronze{% endif %}"></i>
+          Your Gifts
+          </a>
+          {% else %}
+          <i class="fas fa-smile leaderboard-icon smiley"></i> <a
+            href="{% url 'recommendation' user_id=result.student.user.id question_id=1 %}">Recommendations</a>
+          {% endif %}
+          {% else %}
+          {% if result.rank <= 3 %} <i
+            class="fas fa-medal leaderboard-icon {% if result.rank == 1 %}gold{% elif result.rank == 2 %}silver{% elif result.rank == 3 %}bronze{% endif %}">
+            </i>
+            {% else %}
+            <i class="fas fa-smile leaderboard-icon smiley"></i>
+            {% endif %}
+            {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

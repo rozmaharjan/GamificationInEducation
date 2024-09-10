@@ -1,0 +1,172 @@
+{% extends 'student/studentbase.html' %}
+
+{% block content %}
+<style>
+  /* General styles */
+  body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 30px;
+    font-size: 2.5rem;
+  }
+
+  a {
+    color: #3498db;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Recommendation container */
+  .recommendation-container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+    width: 90%;
+  }
+
+  /* Predicted score */
+  .predicted-score {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  /* Table styles */
+  .recommendation-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .recommendation-table thead th {
+    background-color: #3498db;
+    /* Blue background */
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .recommendation-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .recommendation-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+
+  .recommendation-table tbody td {
+    padding: 15px;
+    text-align: left;
+    font-size: 1rem;
+    border-top: 1px solid #ddd;
+  }
+
+  /* Add a hover effect for rows */
+  .recommendation-table tbody tr:hover {
+    background-color: #e1e1e1;
+    cursor: pointer;
+  }
+
+  /* Video section styles */
+  .video-section {
+    margin-top: 20px;
+  }
+
+  .video-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .video-item {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .video-thumbnail {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .video-thumbnail:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .video-link {
+    display: block;
+    color: #3498db;
+    font-size: 1rem;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+
+  .video-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="recommendation-container">
+  <h1>Personalized Recommendations</h1>
+  <p class="predicted-score">Predicted Score: {{ predicted_score }}</p>
+
+  <table class="recommendation-table">
+    <thead>
+      <tr>
+        <th>Subject</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for subject in recommended_videos.keys %}
+      <tr>
+        <td>{{ subject }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="video-section">
+    {% for subject, videos in recommended_videos.items %}
+    <h2>{{ subject }}</h2>
+    <div class="video-list">
+      {% for video in videos %}
+      <div class="video-item">
+        <a href="{{ video.url }}" target="_blank">
+          <img src="{{ video.thumbnail }}" class="video-thumbnail" alt="Video thumbnail">
+          <span class="video-link">Watch Video</span>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

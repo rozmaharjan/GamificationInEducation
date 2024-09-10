@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .discount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4CAF50; /* Green color for discount */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .book-item {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .book-item img {
+            border-radius: 4px;
+            margin-right: 15px;
+            max-width: 100px;
+            height: auto;
+        }
+
+        .book-info {
+            max-width: calc(100% - 120px); /* Space for image */
+        }
+
+        .book-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .book-authors {
+            font-style: italic;
+            color: #555;
+        }
+
+        .book-discount {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #4CAF50; /* Green color for discount */
+        }
+
+        .no-books {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Available Books</h1>
+        <p class="discount">Your Discount: {{ discount }}</p>
+        <h2>Books List</h2>
+        <ul class="book-list">
+            {% for book in books %}
+            <li class="book-item">
+                {% if book.volumeInfo.imageLinks.thumbnail %}
+                <img src="{{ book.volumeInfo.imageLinks.thumbnail }}" alt="{{ book.volumeInfo.title }}">
+                {% endif %}
+                <div class="book-info">
+                    <div class="book-title">{{ book.volumeInfo.title }}</div>
+                    {% if book.volumeInfo.authors %}
+                    <div class="book-authors">by {{ book.volumeInfo.authors|join:", " }}</div>
+                    {% endif %}
+                    <div class="book-discount">Discount: {{ discount }}</div>
+                </div>
+            </li>
+            {% empty %}
+            <li class="no-books">No books found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

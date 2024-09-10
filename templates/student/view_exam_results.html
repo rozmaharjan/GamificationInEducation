@@ -1,0 +1,48 @@
+{% extends 'student/studentbase.html' %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 bg-white p-5 rounded shadow-sm" style="border: 1px solid #ddd">
+      <div class="box" style="background-color: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h2 class="mb-4 text-center font-weight-bold" style="font-family: 'Open Sans', sans-serif">
+          Exam Results for {{ course.course_name }}
+        </h2>
+        <div class="text-center mb-4" style="font-family: 'Open Sans', sans-serif">
+          <h4>Total Marks Obtained: {{ total_marks_obtained }} </h4>
+        </div>
+        <div class="row">
+          {% for result in results %}
+          <div class="col-md-12 mb-4">
+            <div class="card shadow-sm border-light p-4" style="border-radius: 10px">
+              <div class="card-body">
+                <h5 class="card-title text-info font-weight-bold" style="font-family: 'Lato', sans-serif; color: rgba(2, 22, 30, 0.556); font-size: 20px;">
+                  {{ forloop.counter }}. {{ result.question }}
+                </h5>
+                <ul class="list-unstyled" style="font-family: 'Merriweather', serif; font-size: 16px">
+                  {% for option in result.options %}
+                  <li class="mb-2" style="color: black">Option {{ forloop.counter }}: {{ option }}</li>
+                  {% endfor %}
+                </ul>
+                <p style="font-family: 'Lato', sans-serif; font-size: 16px">
+                  Your Answer:
+                  {% if result.your_answer == result.correct_answer %}
+                  <span class="text-success">{{ result.your_answer }}</span>
+                  {% else %}
+                  <span class="text-danger">{{ result.your_answer }}</span>
+                  {% endif %}
+                </p>
+                <p style="font-family: 'Lato', sans-serif; font-size: 16px">
+                  Correct Answer:
+                  <span class="text-success">{{ result.correct_answer }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

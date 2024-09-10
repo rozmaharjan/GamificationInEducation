@@ -1,0 +1,109 @@
+{% extends 'student/studentbase.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .jumbotron {
+      background-color: #f8f9fa;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .question-header {
+      margin-bottom: 1rem;
+    }
+    .form-check {
+      margin-bottom: 1rem;
+    }
+    .form-check-input:checked ~ .form-check-label {
+      color: #003366; /* Dark blue color when selected */
+    }
+    .form-check-label {
+      color: black; /* Default text color */
+    }
+    .submit-btn {
+      background-color: #bcedc2;
+      border-color: #bcedc2;
+      color: #333;
+    }
+    .submit-btn:hover {
+      background-color: #a8d6a1;
+      border-color: #a8d6a1;
+    }
+    .text-info {
+      color: #496869; /* Teal color for question text */
+    }
+  </style>
+</head>
+
+<div class="jumbotron my-4">
+  <form class="form" autocomplete="off" onsubmit="return saveAns()" action="{% url 'save_answers_view' pk=course.pk %}" method="POST">
+    {% csrf_token %}
+    <h1 class="text-center mb-4">{{ course.course_name }}</h1>
+
+    {% for q in questions %}
+    <div class="question-header">
+      <h3 class="text-info">{{ forloop.counter }}. {{ q.question }}</h3>
+      <h4 class="text-right">[Marks {{ q.marks }}]</h4>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="question_{{ q.id }}" id="option1_{{ q.id }}" value="Option1">
+      <label class="form-check-label" for="option1_{{ q.id }}">
+        {{ q.option1 }}
+      </label>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="question_{{ q.id }}" id="option2_{{ q.id }}" value="Option2">
+      <label class="form-check-label" for="option2_{{ q.id }}">
+        {{ q.option2 }}
+      </label>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="question_{{ q.id }}" id="option3_{{ q.id }}" value="Option3">
+      <label class="form-check-label" for="option3_{{ q.id }}">
+        {{ q.option3 }}
+      </label>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="question_{{ q.id }}" id="option4_{{ q.id }}" value="Option4">
+      <label class="form-check-label" for="option4_{{ q.id }}">
+        {{ q.option4 }}
+      </label>
+    </div>
+
+    {% endfor %}
+    <input class="btn btn-lg submit-btn btn-block" type="submit" value="Submit">
+  </form>
+</div>
+
+<script>
+ function saveAns() {  
+    var ele = document.getElementsByTagName('input'); 
+    for (var i = 0; i < ele.length; i++) { 
+        if (ele[i].type === "radio") { 
+            if (ele[i].checked) {        
+              setCookie(ele[i].name, ele[i].value, 3);
+            }
+        } 
+    } 
+    return true; // Ensure form submission is allowed
+}
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+</script> 
+
+{% endblock content %}

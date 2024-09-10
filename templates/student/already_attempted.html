@@ -1,0 +1,91 @@
+{% extends 'student/studentbase.html' %}
+{% block content %}
+<style>
+    .container {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 0.25rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px; /* Adjust the max-width as needed */
+        margin: 0 auto; /* Center the card horizontally */
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        display: inline-block;
+        margin: 0.5rem; /* Space between buttons */
+    }
+
+    .btn-primary {
+        background-color: #7db9da;
+        color: rgb(6, 6, 6);
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-info {
+        background-color: #b81717;
+        color: white;
+        border: none;
+    }
+
+    .btn-info:hover {
+        background-color: #117a8b;
+    }
+
+    hr {
+        border: 0;
+        border-top: 1px solid #eee;
+        margin: 2rem 0;
+    }
+</style>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="text-center">
+                <h1 class="display-4"><i class="fas fa-exclamation-triangle text-warning"></i> Quiz Already Attempted</h1>
+                <p class="lead">You have already taken this quiz. You cannot take it again. Please check your results or contact your instructor if you have any questions.</p>
+                <hr>
+                <div class="text-center">
+                    <a href="{% url 'student-dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+                    <a href="{% url 'view_exam_results' course.id %}" class="btn btn-info">Show My Quiz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional: Add Font Awesome for icons -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+{% endblock content %}
